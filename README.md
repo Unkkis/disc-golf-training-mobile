@@ -1,4 +1,4 @@
-# disc-golf-training-mobile
+# Disc golf training
 ## App for training disc golf
 Includes practice games and history on your scores in them.
 
