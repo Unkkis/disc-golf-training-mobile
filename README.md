@@ -1,4 +1,6 @@
 # disc-golf-training-mobile
+## App for training disc golf
+Includes practice games and history on your scores in them.
 
 - JYLY peli ja sen tilastojen tallennus (ainakin highscore, ehkä muita)
 (- joku lähestymispeli)
