@@ -9,3 +9,12 @@ Includes practice games and history on your scores in them.
 - tulosten lähettäminen kaverille (mieluiten Whatsapp jne, ehkä optiona myös SMS)
 (-kaverien lisääminen ja yhteinen leaderboard (ei mitään hajua miten ton saisi tehtyä))
 - kenttähaku (googlella, jos ei saa muita APIja tähän hätään)
+
+
+Käyttäjä:
+- ekalla kerralla pyytää nimeä
+- seuraavilla kerroilla viimeisin nimi
+- etusivulla voi vaihtaa/lisätä käyttäjän
+- puttipelissä voi lisätä käyttäjiä (jotta voi pelata myös useampi kerrallaan)
+- pituusheitossa voi vaihtaa käyttäjän ennen tuloksen tallentamista
+-
