@@ -12,9 +12,10 @@ Includes practice games and history on your scores in them.
 
 
 Käyttäjä:
+- Tän voinee toteuttaa SQLITE taululla, jossa käyttäjän nimi, ID ja loggedIn(boolean)
 - ekalla kerralla pyytää nimeä
 - seuraavilla kerroilla viimeisin nimi
 - etusivulla voi vaihtaa/lisätä käyttäjän
 - puttipelissä voi lisätä käyttäjiä (jotta voi pelata myös useampi kerrallaan)
 - pituusheitossa voi vaihtaa käyttäjän ennen tuloksen tallentamista
--
+
