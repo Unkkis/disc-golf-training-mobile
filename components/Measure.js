@@ -9,6 +9,7 @@ import Mapview, { Marker } from 'react-native-maps';
 export default function Measure() {
   const [location, setLocation ] = useState(null);
   const [ region, setRegion ] = useState([]);
+  const [ markerVisible, setMarkerVisible ] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -22,9 +23,11 @@ export default function Measure() {
     setRegion({
       'latitude': location.coords.latitude,
       'longitude': location.coords.longitude,
-      latitudeDelta: 0.0009,
-      longitudeDelta: 0.0009,
+      latitudeDelta: 0.000215,
+      longitudeDelta: 0.000148,
     })
+    setLocation(location.coords)
+    setMarkerVisible(true)
   })()}, []);
 
 
@@ -33,7 +36,13 @@ export default function Measure() {
         <Mapview 
           style={{ height:'100%' }}
           region = { region }
-        />
+          mapType='satellite'
+        >
+          {markerVisible ? (
+          <Marker 
+          coordinate={{latitude: location.latitude, longitude: location.longitude }}
+          />) : (<></>)}
+        </Mapview>
     </View>
   );
 }

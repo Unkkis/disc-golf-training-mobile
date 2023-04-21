@@ -14,6 +14,7 @@ const screenOptions = ({ route }) => ({
     headerShown: false,
     tabBarStyle: { height: 80},
     tabBarInactiveTintColor: 'black',
+    tabBarInactiveBackgroundColor: 'grey',
     tabBarIcon: ({ focused, color, size }) => {
       let iconName;
   

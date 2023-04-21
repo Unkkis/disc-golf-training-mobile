@@ -6,7 +6,6 @@ import PointsTable from './Table';
 
 
 export default function JylyResults( {navigation, route}) {
-console.log(route)
 
   return (
     <View style={styles.container}>

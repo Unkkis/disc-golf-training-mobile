@@ -6,6 +6,8 @@ import { StyleSheet, View } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
 
 export default function PointsTable(props) {
+    console.log(props)
+
     const [points, setPoints] =  useState({
       tableHead: ['Round', 'From', 'In basket', 'Points'],
       tableData: [
