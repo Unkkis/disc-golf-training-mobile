@@ -4,12 +4,13 @@ import Styles from '../Styles'
 import { Button, Text, Chip } from '@rneui/themed';
 import { LinearGradient } from 'expo-linear-gradient';
 import { CustomHeader } from './Misc';
-import UserContext from '../UserContext';
+import { UserContext, UserDialogContext } from '../UserContext';
 
 
 
 export default function Home({ navigation }) {
     const userContext = React.useContext(UserContext);
+    const userDialogContext = React.useContext(UserDialogContext);
 
     return (
         <View style={Styles.container}>
@@ -27,7 +28,7 @@ export default function Home({ navigation }) {
                     }}
                     onPress={() => navigation.navigate('Help')}
                     >Rules/Help</Chip>
-                    <Chip size='lg' /*onPress={() => navigation.navigate('Measure')}*/>Change user</Chip>
+                    <Chip size='lg' onPress={() => userDialogContext(true)}>Change user</Chip>
             </View>
             <View style={{flex: 1, justifyContent: 'flex-end' }}><Text>Made by Unkkis Enterprises</Text></View>
         </View>

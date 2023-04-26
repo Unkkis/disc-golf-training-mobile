@@ -1,5 +1,10 @@
 import React from 'react';
 
-const UserContext = React.createContext({user: {}});
+const UserContext = React.createContext({
+    user: {},
+});
+const UserDialogContext = React.createContext({
+    toggleUserDialog: () => {},
+})
 
-export default UserContext;
+export {UserContext, UserDialogContext};

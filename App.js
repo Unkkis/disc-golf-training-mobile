@@ -6,54 +6,56 @@ import BottomTabNavigator from './navigation/TabNavigator';
 import { HomeStackNavigator } from './navigation/StackNavigator';
 import JylyButtons from './components/Jyly/JylyButtons';
 import { useEffect, useState } from 'react';
-import UserContext from './UserContext';
+import { UserContext, UserDialogContext } from './UserContext';
 import * as SQLite from 'expo-sqlite';
 import { Dialog } from '@rneui/themed';
 import Users from './Users';
 
-const db = SQLite.openDatabase('coursedb.db');
-
+const openDatabase = () =>{
+  const database = SQLite.openDatabase('discgolfdb.db');
+  return database
+}
 // Navigation structure:
 // https://reactnavigation.org/docs/hiding-tabbar-in-screens/
 export default function App() {
   const [ currentUser, setCurrentUser ] = useState({user: {}});
   const [visible, setVisible] = useState(false);
+  const [ users, setUsers ] = useState([]);
 
- /* const [ users, setUsers ] = useState([])
-
+ /* const [ users, setUsers ] = useState([])*/
 
   useEffect(() => {
+    db = openDatabase()
     db.transaction(tx => {
-      tx.executeSql('create table if not exists users (id integer primary key not null, username text, name text, loggedin boolean);');
-    }, null, updateList); 
-  }, []);*/
+      tx.executeSql('select * from users where loggedin=1;', [], (_, { rows }) =>
+      setUsers(rows._array)
+      );
+    }, null, null);
+    
+    
+  }, [console.log("App sivun: ", users)]);
 
-  useEffect(() => {
-    toggleDialog();
-    setCurrentUser({user:{username: "Jussi", name: "Jussi Kosonen"}});
-  }, []);
-
-  const toggleDialog = () => {
+  const toggleUserDialog = () => {
     setVisible(!visible);
   };
 
   return (
     <UserContext.Provider value={currentUser}>
+      <UserDialogContext.Provider value={setVisible}>
       <NavigationContainer>
         <HomeStackNavigator />
       </NavigationContainer>
       <Dialog
         isVisible={visible}
-        onBackdropPress={toggleDialog}
+        onBackdropPress={toggleUserDialog}
+
       >            
-      <Dialog.Title title="Change users"/>
+      <Dialog.Title title="Choose user"/>
       <Users />
-            <Dialog.Actions>
-                <Dialog.Button title="End Game" />
-                <Dialog.Button title="Return" />
-            </Dialog.Actions>
+
         
       </Dialog>
+      </UserDialogContext.Provider>
     </UserContext.Provider>
   );
 }

@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, FlatList } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, FlatList, Keyboard } from 'react-native';
 import * as SQLite from 'expo-sqlite';
-import { Dialog } from '@rneui/themed';
+import { Dialog, ListItem } from '@rneui/themed';
+import { UserDialogContext } from './UserContext';
 
-const db = SQLite.openDatabase('coursedb.db');
+
 
 export default function Users() {
-    const [ currentUser, setCurrentUser ] = useState({user: {}});
+    const db = SQLite.openDatabase('discgolfdb.db');
+    const userDialogContext = React.useContext(UserDialogContext);
+
     const [ users, setUsers ] = useState([])
+    const [ username, setUsername ] = useState("");
+    const [ name, setName ] = useState("");
+    const [ expanded, setExpanded ] = useState(true);
+    const [ showNewUser, setShowNewUser ] =useState(false);
 
   useEffect(() => {
     db.transaction(tx => {
@@ -15,50 +22,109 @@ export default function Users() {
     }, null, updateList); 
   }, []);
 
-  // Save course
-  const saveItem = () => {
+  // Save user
+  const saveUser = () => {
     db.transaction(tx => {
-        tx.executeSql('insert into course (credits, title) values (?, ?);', [parseInt(credit), title]);    
-      }, null, updateList
-    )
+        tx.executeSql('insert into users (username, name) values (?, ?);', [username, name]);   
+      }, null, updateList);
+    
+    setUsername('');
+    setName('');
+    Keyboard.dismiss();
+    setShowNewUser(false);
+    setExpanded(true);
+    console.log("user saved")
   }
 
-  // Update courselist
+  // Update userlist
   const updateList = () => {
     db.transaction(tx => {
-      tx.executeSql('select * from course;', [], (_, { rows }) =>
-        setCourses(rows._array)
-      ); 
-    });
+      tx.executeSql('select * from users;', [], (_, { rows }) =>
+        setUsers(rows._array)
+      );
+    }, null, null);
+    console.log("Users updated") 
   }
 
   // Delete course
-  const deleteItem = (id) => {
+  const deleteUser = (id) => {
     db.transaction(
       tx => {
-        tx.executeSql(`delete from course where id = ?;`, [id]);
-      }, null, updateList
-    )    
+        tx.executeSql(`delete from users where id = ?;`, [id]);
+      }, null, updateList) 
+    console.log("Delete painettu")   
   }
 
-  const listSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 5,
-          width: "80%",
-          backgroundColor: "#fff",
-          marginLeft: "10%"
-        }}
-      />
-    );
-  };
+  const chooseUser = (id, username, name) => {
+    console.log(id + " painettu")
+    db.transaction(tx => {
+      tx.executeSql('UPDATE users SET loggedin = false;');
+      tx.executeSql('UPDATE users SET loggedin = true WHERE id = ?;', [id])
+    }, null, updateList)
+    userDialogContext(false);
+  }
 
-  return (
-        <View>
-            <Text>Tekstiä Dialogista</Text>
-        </View>
+
+
+  return(
+    <View>
+      <ListItem.Accordion
+        content={
+          <>
+            <ListItem.Content>
+              <ListItem.Title>List Accordion</ListItem.Title>
+            </ListItem.Content>
+          </>
+        }
+        isExpanded={expanded}
+        onPress={() => {
+          setExpanded(!expanded);
+          setShowNewUser(false);
+        }}
+      >
+        {users.map((l, i) => (
+          <ListItem key={i} onPress={() => chooseUser(l.id, l.username, l.name)}   bottomDivider>
+            <ListItem.Content >
+              <ListItem.Title>Username: {l.username}</ListItem.Title>
+              <ListItem.Subtitle>Logged in: {l.loggedin}</ListItem.Subtitle>
+            </ListItem.Content>
+            <Button title="Delete" onPress={() => deleteUser(l.id)} />
+            <ListItem.Chevron />
+          </ListItem>
+        ))}
+      </ListItem.Accordion>
+      <ListItem.Accordion 
+        content= {
+          <ListItem.Content>
+            <ListItem.Title>Add new user</ListItem.Title>
+          </ListItem.Content>
+        } 
+        isExpanded={showNewUser}
+        onPress={() => {
+          setShowNewUser(!showNewUser);
+          setExpanded(false);
+        }}
+        title="Add User">  
+   
+        <ListItem>
+          <View> 
+            <TextInput placeholder='Username' style={{marginTop: 10, fontSize: 18, width: 200, borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(username) => setUsername(username)}
+            value={username}/> 
+            <TextInput placeholder='Full name' style={{marginTop: 10, marginBottom: 10, fontSize: 18, width: 200, borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(name) => setName(name)}
+            value={name}/>
+            <Button title="Add new user" onPress={saveUser} />
+      
+          </View> 
+        </ListItem>
+
+          </ListItem.Accordion>
+
+    </View>
   );
+
+  
 }
 const styles = StyleSheet.create({
     container: {
