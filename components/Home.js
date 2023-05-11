@@ -15,7 +15,7 @@ export default function Home({ navigation }) {
     return (
         <View style={Styles.container}>
             <CustomHeader />
-            <View style={{ flex: 2, justifyContent: 'center', padding: 40 }}><Text>Hi {userContext.user.username}.</Text><Text>Welcome to DG trainer, your app for Disc golf training. Chooose your medicine from below.</Text></View>
+            <View style={{ flex: 2, justifyContent: 'center', padding: 40 }}><Text>Hi {userContext.user.user.username}.</Text><Text>Welcome to DG trainer, your app for Disc golf training. Chooose your medicine from below.</Text></View>
             <View style={{flex: 2, justifyContent: 'space-around' }}>
                 <Chip size='lg' onPress={() => navigation.navigate('JYLY')}>JYLY</Chip>
                 <Chip size='lg' onPress={() => navigation.navigate('Measure')}>Measure distance</Chip>

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, FlatList, Keyboard } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import { Dialog, ListItem } from '@rneui/themed';
-import { UserDialogContext } from './UserContext';
+import { UserContext, UserDialogContext } from './UserContext';
 
-
+const db = SQLite.openDatabase('discgolfdb.db');
 
 export default function Users() {
-    const db = SQLite.openDatabase('discgolfdb.db');
+    
     const userDialogContext = React.useContext(UserDialogContext);
+    const { user, setUser } = React.useContext(UserContext);
 
     const [ users, setUsers ] = useState([])
     const [ username, setUsername ] = useState("");
@@ -62,6 +63,7 @@ export default function Users() {
       tx.executeSql('UPDATE users SET loggedin = true WHERE id = ?;', [id])
     }, null, updateList)
     userDialogContext(false);
+    setUser({user: {username: username, name: name}})
   }
 
 

@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import Styles from '../../Styles';
 import { Button, Text } from '@rneui/themed';
-import PointsTable from './Table';
+import PointsTable, { StatsTable } from './Table';
 
 
 export default function JylyResults( {navigation, route}) {
@@ -17,6 +17,7 @@ export default function JylyResults( {navigation, route}) {
         />
         <Text>points: {route.params.points}</Text>
         <PointsTable throws= {route.params.throws}/>
+        <StatsTable throws= {route.params.throws} />
       </View>
     </View>
   );

@@ -6,8 +6,6 @@ import { StyleSheet, View } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
 
 export default function PointsTable(props) {
-    console.log(props)
-
     const [points, setPoints] =  useState({
       tableHead: ['Round', 'From', 'In basket', 'Points'],
       tableData: [
@@ -37,6 +35,41 @@ export default function PointsTable(props) {
     )
     
 }
+
+export function StatsTable(props) {
+  const [stats, setStats] =  useState({
+
+    tableHead: ['From', 'Number in', '% in'],
+    tableData: [
+      [],
+
+    ]
+  })
+  
+
+  
+  useEffect(()=>{
+      
+      props.throws.forEach(heitto => {
+        console.log(heitto)
+      });
+  }, [props])
+
+ 
+  return (
+    <View style={styles.container}>
+      <Table borderStyle={{borderWidth: 1}}>
+        <Row data={points.tableHead} flexArr={[1, 1, 1]} style={styles.head} textStyle={styles.text}/>
+        <TableWrapper style={styles.wrapper}>
+          <Col data={points.tableTitle} style={styles.title} heightArr={[28,28]} textStyle={styles.text}/>
+          <Rows data={points.tableData} flexArr={[1, 1, 1]} style={styles.row} textStyle={styles.text}/>
+        </TableWrapper>
+      </Table>
+    </View>
+  )
+  
+}
+
 
 
 const styles = StyleSheet.create({

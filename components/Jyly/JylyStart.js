@@ -2,13 +2,15 @@ import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import Styles from '../../Styles'
 import { Button, ListItem, Text } from '@rneui/themed';
-import UserContext from '../../UserContext';
+import { UserContext, UserDialogContext } from '../../UserContext';
+
 
 
 
 export default function JylyStart( {navigation} ) {
 
 const userContext = React.useContext(UserContext); 
+const userDialogContext = React.useContext(UserDialogContext);
 
   return (
     <View style={styles.container}>
@@ -19,7 +21,7 @@ const userContext = React.useContext(UserContext);
                 
                 
                 <View style={{ flex: 1, alignItems: 'center'}}>
-                <Text>If you are not {userContext.user.username} you can change user here:</Text>
+                <Text>If you are not {userContext.user.user.username} you can change user here:</Text>
                     <Button
                         title="Change user"
                         buttonStyle={{
@@ -30,7 +32,7 @@ const userContext = React.useContext(UserContext);
                             width: 300
                         }}
                         titleStyle={{ fontWeight: 'bold' }}
-                        //onPress={() => navigation.navigate('JylyGame')}
+                        onPress={() => userDialogContext(true)}
                     />
             </View>
             </View>

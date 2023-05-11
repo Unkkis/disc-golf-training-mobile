@@ -11,36 +11,37 @@ import * as SQLite from 'expo-sqlite';
 import { Dialog } from '@rneui/themed';
 import Users from './Users';
 
-const openDatabase = () =>{
-  const database = SQLite.openDatabase('discgolfdb.db');
-  return database
-}
+const db = SQLite.openDatabase('discgolfdb.db');
+
 // Navigation structure:
 // https://reactnavigation.org/docs/hiding-tabbar-in-screens/
 export default function App() {
-  const [ currentUser, setCurrentUser ] = useState({user: {}});
+  //for user selection and change
+  const [ user, setUser ] = useState({user: {}});
+  const value = { user, setUser };
   const [visible, setVisible] = useState(false);
-  const [ users, setUsers ] = useState([]);
-
- /* const [ users, setUsers ] = useState([])*/
 
   useEffect(() => {
-    db = openDatabase()
+    db.transaction(tx => {
+      tx.executeSql('create table if not exists users (id integer primary key not null, username text, name text, loggedin boolean);');
+    }, null, updateList); 
+  }, [visible]);
+
+  const updateList = () => {
     db.transaction(tx => {
       tx.executeSql('select * from users where loggedin=1;', [], (_, { rows }) =>
-      setUsers(rows._array)
+      setUser({user:{username: rows._array[0].username, name: rows._array[0].name}})
       );
     }, null, null);
-    
-    
-  }, [console.log("App sivun: ", users)]);
+
+  }
 
   const toggleUserDialog = () => {
     setVisible(!visible);
   };
 
   return (
-    <UserContext.Provider value={currentUser}>
+    <UserContext.Provider value={value}>
       <UserDialogContext.Provider value={setVisible}>
       <NavigationContainer>
         <HomeStackNavigator />
