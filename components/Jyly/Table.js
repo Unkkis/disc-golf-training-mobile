@@ -35,7 +35,7 @@ export default function PointsTable(props) {
     )
     
 }
-
+/*
 export function StatsTable(props) {
   const [stats, setStats] =  useState({
 
@@ -69,7 +69,7 @@ export function StatsTable(props) {
   )
   
 }
-
+*/
 
 
 const styles = StyleSheet.create({

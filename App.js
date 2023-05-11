@@ -19,12 +19,12 @@ export default function App() {
   //for user selection and change
   const [ user, setUser ] = useState({user: {}});
   const value = { user, setUser };
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     db.transaction(tx => {
       tx.executeSql('create table if not exists users (id integer primary key not null, username text, name text, loggedin boolean);');
-    }, null, updateList); 
+    }, null, updateList);
   }, [visible]);
 
   const updateList = () => {

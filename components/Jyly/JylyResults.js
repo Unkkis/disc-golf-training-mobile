@@ -17,7 +17,7 @@ export default function JylyResults( {navigation, route}) {
         />
         <Text>points: {route.params.points}</Text>
         <PointsTable throws= {route.params.throws}/>
-        <StatsTable throws= {route.params.throws} />
+       {/*<StatsTable throws= {route.params.throws} />*/}
       </View>
     </View>
   );
