@@ -36,7 +36,7 @@ export default function Measure() {
         <Mapview 
           style={{ height:'100%' }}
           region = { region }
-          mapType='satellite'
+          mapType='hybrid'
         >
           {markerVisible ? (
           <Marker 

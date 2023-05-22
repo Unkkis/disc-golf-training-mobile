@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import Styles from '../../Styles'
 import { Button, Text, Dialog } from '@rneui/themed';
 import PointsTable from './Table';
-import { UserContext } from '../../UserContext';
+
 
 
 export default function Jyly( {navigation} ) {
-  const userContext = React.useContext(UserContext);
+
   const [ points, setPoints ] = useState(0);
   const [ where, setWhere ] = useState(10);
   const [round, setRound ] = useState(0);
@@ -79,7 +79,6 @@ export default function Jyly( {navigation} ) {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text>Player: {userContext.user.user.username}</Text>
         <Text>Total Points: {points}</Text>
         <Text>Now throw from: {where} meters </Text>
         <PointsTable throws= {throws}/>
