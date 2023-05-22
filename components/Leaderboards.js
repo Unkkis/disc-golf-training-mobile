@@ -9,7 +9,7 @@ export default function Leaderboards() {
 
   return (
     <View>
-        <Text>LLeaderboards in this page</Text>
+        <Text>Leaderboards in this page</Text>
     </View>
   );
 }
