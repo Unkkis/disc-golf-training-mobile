@@ -1,6 +1,5 @@
 import React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeStackNavigator } from "./StackNavigator";
 import Statistics from '../components/Statistics';
 import Discs from '../components/Discs'
 import FindCourse from '../components/FindCourse';

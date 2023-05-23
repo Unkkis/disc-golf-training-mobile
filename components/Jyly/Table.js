@@ -2,8 +2,10 @@
 //https://www.npmjs.com/package/react-native-table-component
 
 import React, { Component, useState, useEffect} from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, LogBox } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
+
+LogBox.ignoreLogs(['Invalid prop `textStyle` of type `array` supplied to `Cell`, expected `object`.']);
 
 export default function PointsTable(props) {
     const [points, setPoints] =  useState({
@@ -35,41 +37,41 @@ export default function PointsTable(props) {
     )
     
 }
-/*
+
 export function StatsTable(props) {
   const [stats, setStats] =  useState({
 
-    tableHead: ['From', 'Number in', '% in'],
+    tableHead: ['Distance', 'How many in', '% in'],
     tableData: [
       [],
 
     ]
   })
   
-
-  
   useEffect(()=>{
-      
-      props.throws.forEach(heitto => {
-        console.log(heitto)
-      });
+    let stats_array = []
+    for (const from in props.stats){
+      stats_array.push([from, props.stats[from], `${props.stats[from]} %` ])
+    }
+    setStats({...stats, tableData: stats_array})
   }, [props])
 
- 
+
+
   return (
     <View style={styles.container}>
       <Table borderStyle={{borderWidth: 1}}>
-        <Row data={points.tableHead} flexArr={[1, 1, 1]} style={styles.head} textStyle={styles.text}/>
+        <Row data={stats.tableHead} flexArr={[1, 1, 1]} style={styles.head} textStyle={styles.text}/>
         <TableWrapper style={styles.wrapper}>
-          <Col data={points.tableTitle} style={styles.title} heightArr={[28,28]} textStyle={styles.text}/>
-          <Rows data={points.tableData} flexArr={[1, 1, 1]} style={styles.row} textStyle={styles.text}/>
+          <Col data={stats.tableTitle} style={styles.title} heightArr={[28,28]} textStyle={styles.text}/>
+          <Rows data={stats.tableData} flexArr={[1, 1, 1]} style={styles.row} textStyle={styles.text}/>
         </TableWrapper>
       </Table>
     </View>
   )
   
 }
-*/
+
 
 
 const styles = StyleSheet.create({

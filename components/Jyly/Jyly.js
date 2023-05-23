@@ -42,6 +42,7 @@ export default function Jyly( {navigation} ) {
         break;
       case 4:
         setWhere(9);
+        break;
       case 5:
         setWhere(10);
         break;
@@ -69,6 +70,9 @@ export default function Jyly( {navigation} ) {
   useEffect(()=>{
     if (round >= 20){
       toggleDialog();
+    }
+    if (round > 20){
+      removePoints()
     }
 }, [round])
 
