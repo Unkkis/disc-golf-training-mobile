@@ -17,7 +17,7 @@ const screenOptions = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
       let iconName;
   
-      if (route.name === 'Games') {
+      if (route.name === 'Traning') {
         iconName = 'apps';
       } else if (route.name === 'Stats') {
         iconName = 'bar-chart';
@@ -35,8 +35,7 @@ const BottomTabNavigator = () => {
         <Tab.Navigator 
             screenOptions= {screenOptions}
             >
-        <Tab.Screen name="Games" component={Home} />
-        <Tab.Screen name="Discs" component={Discs} />
+        <Tab.Screen name="Traning" component={Home} />
         <Tab.Screen name="Courses" component={FindCourse}  />
         <Tab.Screen name="Stats" component={Statistics} />
     </Tab.Navigator>

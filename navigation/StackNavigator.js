@@ -1,6 +1,5 @@
 import React from "react";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import JylyStart from "../components/Jyly/JylyStart";
 import Measure from "../components/Measure";
 import Upshots from "../components/Upshots";
 import Help from "../components/Help";
@@ -25,8 +24,7 @@ const HomeStackNavigator = () => {
 
 const JylyStackNavigator = () => {
     return ( 
-        <Stack.Navigator>
-            <Stack.Screen name="Choose players" component={JylyStart} />
+        <Stack.Navigator>         
             <Stack.Screen name="JylyGame" component={Jyly} options={{ title: 'JYLY Putting game' }} />
             <Stack.Screen name="JylyResults" component={JylyResults} options={{ title: 'RESULTS', headerBackVisible: false, gestureEnabled: false }} />
         </Stack.Navigator>

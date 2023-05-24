@@ -15,7 +15,7 @@ export default function Home({ navigation }) {
             <CustomHeader />
             <View style={{ flex: 2, justifyContent: 'center', padding: 40 }}><Text>Hi.</Text><Text>Welcome to DG trainer, your app for Disc golf training. Chooose your medicine from below.</Text></View>
             <View style={{flex: 2, justifyContent: 'space-around' }}>
-                <Chip size='lg' onPress={() => navigation.navigate('JYLY')}>JYLY</Chip>
+                <Chip size='lg' onPress={() => navigation.navigate('JYLY')}>JYLY putting game</Chip>
                 <Chip size='lg' onPress={() => navigation.navigate('Measure')}>Measure distance</Chip>
                 <Chip size='lg'   
                     ViewComponent={LinearGradient} // Don't forget this!

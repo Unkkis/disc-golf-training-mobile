@@ -13,23 +13,25 @@ export default function JylyStart( {navigation} ) {
     <View style={styles.container}>
         
         <View style={{ flex: 9, alignItems: 'center' }}>
-        <Text>JYLY game</Text>
-            <View style={{ flex: 2, alignItems: 'center'}}>
-            <Text>So, are you ready to start?</Text>
-            <Button
-                title="Start game"
-                buttonStyle={{
-                    borderColor: 'black',
-                    borderRadius: 30
-                }}
-                containerStyle={{
-                    width: 300
-                }}
-                titleStyle={{ fontWeight: 'bold' }}
-                onPress={() => navigation.navigate('JylyGame')}
-            />
-            </View>
+          <Text h2>JYLY putting game</Text>
         </View>
+        <View style={{ flex: 2, alignItems: 'center'}}>
+          <Text h4>So, are you ready to start?</Text>
+          <Text h4>If you are, press start!</Text>
+          <Button
+              title="Start"
+              buttonStyle={{
+                  borderColor: 'black',
+                  borderRadius: 30
+              }}
+              containerStyle={{
+                  width: 300
+              }}
+              titleStyle={{ fontWeight: 'bold' }}
+              onPress={() => navigation.navigate('JylyGame')}
+          />
+        </View>
+        
     </View>
   );
 }
