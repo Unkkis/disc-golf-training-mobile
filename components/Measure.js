@@ -4,12 +4,14 @@ import * as Location from 'expo-location';
 import Mapview, { Marker, PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
 import { Button, Text } from '@rneui/themed';
 import { getDistance } from 'geolib';
+import ShareStats from './Share';
 
 
 //https://medium.com/quick-code/react-native-location-tracking-14ab2c9e2db8
 //https://github.com/vikrantnegi/react-native-location-tracking
+//https://chafikgharbi.com/expo-location-tracking/
 
-let foregroundSubscription = null
+
 
 export default function Measure() {
   const [ location, setLocation ] = useState(null);
@@ -20,10 +22,13 @@ export default function Measure() {
   const [ startLocation, setStartLocation ] = useState();
   const [ endLocation, setEndLocation ] = useState();
   const [ shotLength, setShotLength] = useState();
-  const [buttonTitle, setButtonTitle ] = useState("Start GPS")
+  const [ buttonTitle, setButtonTitle ] = useState("Wait for location..")
   const [ accuracy, setAccuracy ] = useState();
   const [ lengthVisible, setLengthVisible ] = useState(false);
   const [ accuracyVisible, setAccuracyVisible ] = useState(false);
+  const [ shareButtonVisible, setShareButtonVisible ] = useState(false);
+
+  let foregroundSubscription = null
 
   useEffect(() => {
     (async () => {
@@ -33,14 +38,15 @@ export default function Measure() {
       return;
     }
 
-    let location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.High} );
+    let currenLocation = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.High} );
     setRegion({
-      'latitude': location.coords.latitude,
-      'longitude': location.coords.longitude,
-      latitudeDelta: 0.00215,
-      longitudeDelta: 0.00148,
+      'latitude': currenLocation.coords.latitude,
+      'longitude': currenLocation.coords.longitude,
+      latitudeDelta: 0.000215,
+      longitudeDelta: 0.000148,
     })
-    setLocation(location.coords)
+    setLocation(currenLocation.coords)
+    setButtonTitle("Start GPS")
   })()}, []);
 
   useEffect(() => {
@@ -79,22 +85,24 @@ export default function Measure() {
         setRegion({
           'latitude': position.coords.latitude,
           'longitude': position.coords.longitude,
-          latitudeDelta: 0.00215,
-          longitudeDelta: 0.00148,
+          latitudeDelta: 0.000215,
+          longitudeDelta: 0.000148,
         })
         setAccuracy((position.coords.accuracy).toFixed())
       }
     )
   }
 
-    // Stop location tracking in foreground
-    const stopForegroundUpdate = () => {
-      foregroundSubscription?.remove()
-    }
+  // Stop location tracking in foreground
+  const stopForegroundUpdate = () => {
+    foregroundSubscription?.remove()
+  }
+
   const buttonPressed = (title) => {
     switch (title) {
       case "Start GPS":
         setLengthVisible(false);
+        setShareButtonVisible(false);
         setShotLength(0);
         startForegroundUpdate(); //start getting GPS info
         setMarkerVisible(true);
@@ -121,10 +129,13 @@ export default function Measure() {
         );
         setShotLength(length);
         
+        setShareButtonVisible(true);
         setEndMarkerVisible(true);
         setAccuracyVisible(false);
         setButtonTitle("Start GPS")
         break;
+        case "Wait for location..":
+          break;
     }
 
     
@@ -136,7 +147,7 @@ export default function Measure() {
     <View style={styles.container}>
         <Mapview style={styles.map}
           region = { region }
-          mapType='hybrid'
+          mapType='satellite'
           provider={PROVIDER_GOOGLE}
         >
           {markerVisible ? (
@@ -202,6 +213,7 @@ export default function Measure() {
             onPress={() => buttonPressed(buttonTitle)}
             style={{position: "absolute", bottom: 50}}
             />
+          {shareButtonVisible ? (<ShareStats message={`Hi. I just threw ${shotLength} meters!!`}/>):(<></>)}
         </View>
         
     </View>

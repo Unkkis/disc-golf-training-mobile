@@ -4,7 +4,7 @@ import { Button } from '@rneui/themed'
 
 export default function ShareStats(props){
     const message = props.message
-    console.log(message)
+    
 
     const shareOptions = {
         title: 'Title',

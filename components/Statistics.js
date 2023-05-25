@@ -94,24 +94,31 @@ export default function Statistics() {
     <View style= {styles.container}>
       <CustomHeader />
       <View style={{flex: 5}}>
-        <Text h2>JYLY statistics</Text>
-        <Text h4>Rounds played: {rounds}</Text>
-        <Text h4>Stats from all rounds:</Text>
-        <StatsTable stats= {stats} />
+        <View style={{alignItems: 'center'}}>
+          <Text h2>JYLY statistics</Text>
+        </View>
+        <Text h3>Rounds played: {rounds}</Text>
+        <View style={{paddingTop: 20}}>
+          <Text h4>Stats from all rounds:</Text>
+        </View>
+          <StatsTable stats= {stats} />
+        
         
       </View>
-      <View style={{flex: 5}}>
+      <View style={{flex: 5, alignItems: 'center'}}>
         <Text h4>Top5 round scores: </Text>
-        <FlatList  
-            data={topPoints}
-            renderItem={({ item, index }) =>
-           
-            <Text h4>{index+1}: {item}</Text>
-    
-        }
-      />
-
+        <View style={{}}>
+          <FlatList  
+              data={topPoints}
+              renderItem={({ item, index }) =>
+            
+              <Text h4>{index+1}: {item}</Text>
+      
+            }
+          />
+        </View>
       </View>
+
       <ShareStats message={`Hi. My best JYLY score is ${topPoints[0]}. What is yours?`}/>
     </View>
   );
@@ -121,23 +128,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1, 
     backgroundColor: '#fff',
+    
   },
-  resultsContainer: {
-    flex: 6,
-  },
-  statsContainer: {
-    flex: 3,
-  },
-  buttonContainer: {
-    flex: 1,
-  },
-  button: {
-      borderRadius: 10,
-      borderWidth: 0.5,
-      borderColor: '#d6d7da',
-      backgroundColor: '#2196F3',
-      overflow: 'hidden',
-    },
-
-
 });
