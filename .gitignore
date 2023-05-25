@@ -16,5 +16,4 @@ web-build/
 # ignore dotenv configuration file
 .env
 
-app.json
 

@@ -14,7 +14,7 @@ const HomeStackNavigator = () => {
         <Stack.Navigator>
             <Stack.Screen options={{headerShown: false}} name="Home" component={BottomTabNavigator} />
             <Stack.Screen options={{headerShown: false}} name="JYLY" component={JylyStackNavigator} />
-            <Stack.Screen name="Measure" component={Measure} />
+            <Stack.Screen options={{headerShown: false}} name="Measure" component={Measure} />
             <Stack.Screen name="Help" component={Help} />
         </Stack.Navigator>
       );
