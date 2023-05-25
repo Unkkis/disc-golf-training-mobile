@@ -125,7 +125,7 @@ export default function Jyly( {navigation} ) {
         onBackdropPress={null}
       >
         <Dialog.Title title="Ending the game"/>
-        <Text>If you want to end the game, press end game. If you need to correct score, click Return</Text>
+        <Text style={{fontSize: 14}}>If you want to end the game, press end game. If you need to correct score, click Return</Text>
         <Dialog.Actions>
           <Dialog.Button title="End Game" onPress={() => {endGame(); toggleDialog()}}/>
           <Dialog.Button title="Return" onPress={() => {removePoints(); toggleDialog()}}/>

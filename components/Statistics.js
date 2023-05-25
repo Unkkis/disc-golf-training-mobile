@@ -1,12 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
+
 import { StyleSheet, View, FlatList } from 'react-native';
 import { Button, Text } from '@rneui/themed';
-import Styles from '../Styles'
 import { CustomHeader } from './Misc';
-import PointsTable, { StatsTable } from './Jyly/Table';
+import { StatsTable } from './Jyly/Table';
 import * as SQLite from 'expo-sqlite';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
+import ShareStats from './Share';
 
 const db = SQLite.openDatabase('discgolfdb.db');
 
@@ -87,6 +87,8 @@ export default function Statistics() {
     points.sort(function(a, b){return b-a}); 
     setTopPoints(points.slice(0,5))
   }
+
+  
   
   return (
     <View style= {styles.container}>
@@ -110,6 +112,7 @@ export default function Statistics() {
       />
 
       </View>
+      <ShareStats message={`Hi. My best JYLY score is ${topPoints[0]}. What is yours?`}/>
     </View>
   );
 }

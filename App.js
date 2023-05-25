@@ -13,6 +13,10 @@ const theme = createTheme({
         width: "100%",
         borderRadius: 35,
       },
+      titleStyle: {
+        color: "white",
+      }
+
     },
     Text: {
       style: {

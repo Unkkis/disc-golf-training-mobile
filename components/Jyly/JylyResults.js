@@ -4,6 +4,7 @@ import Styles from '../../Styles';
 import { Button, Text } from '@rneui/themed';
 import PointsTable, { StatsTable } from './Table';
 import * as SQLite from 'expo-sqlite';
+import ShareStats from '../Share';
 
 const db = SQLite.openDatabase('discgolfdb.db');
 
@@ -68,6 +69,7 @@ export default function JylyResults( {navigation, route}) {
               title= "Go home"
               onPress={() => go_home_pressed()}
           />
+        <ShareStats message={`I just played a round of JYLY and got ${route.params.points} points!!`}/>
       </View>
     </View>
   );
@@ -79,21 +81,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   resultsContainer: {
-    flex: 6,
+    flex: 10,
   },
   statsContainer: {
-    flex: 3,
+    flex: 5,
   },
   buttonContainer: {
-    flex: 1,
+    flex: 3,
   },
-  button: {
-      borderRadius: 10,
-      borderWidth: 0.5,
-      borderColor: '#d6d7da',
-      backgroundColor: '#2196F3',
-      overflow: 'hidden',
-    },
+
 
 
 });
