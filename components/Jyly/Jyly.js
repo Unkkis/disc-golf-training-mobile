@@ -14,6 +14,7 @@ export default function Jyly( {navigation} ) {
   const [throws, setThrows] = useState([]);
   const [visible, setVisible] = useState(false);
 
+  // delete last throw
   const removePoints = () => {
     if (round > 0) {
       setRound(round-1);
@@ -22,6 +23,9 @@ export default function Jyly( {navigation} ) {
     }
   }
 
+  // calculate how many points to add and from where to throw next
+  // Logic is: if 5/5 throws in, next throw is from 10m. If 4/5 throws in, next throw from 9m.... If 1/5 throw in, next from 6m. If 0/5 throws in, next from 5m.
+  // Points logic: how many throws in * from where. Eg. if 5 throws from 10m in = 50 points. If 3 throws from 8m in = 24points. 
   const addPoints = (value) => {
 
     let rounds = round
@@ -47,9 +51,7 @@ export default function Jyly( {navigation} ) {
         setWhere(10);
         break;
     }
-
     pisteet = where * value
-  
     rounds += 1;
     setThrows(throws => [...throws,[rounds, where, value, pisteet]] );
     setRound(rounds);
@@ -59,6 +61,7 @@ export default function Jyly( {navigation} ) {
     navigation.navigate('JylyResults', {points, throws});
   }
 
+  //calculating total points
   useEffect(() => {
     let kokonaispisteet = 0;
     throws.forEach((round) => {
@@ -67,6 +70,7 @@ export default function Jyly( {navigation} ) {
     setPoints(kokonaispisteet); 
   }, [throws])
 
+  //to end the game after 20 rounds
   useEffect(()=>{
     if (round >= 20){
       toggleDialog();
@@ -83,8 +87,8 @@ export default function Jyly( {navigation} ) {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text>Total Points: {points}</Text>
-        <Text>Now throw from: {where} meters </Text>
+        <Text h3>Total Points: {points}</Text>
+        <Text h4>Now throw from: {where} meters </Text>
         <PointsTable throws= {throws}/>
         
       </View>

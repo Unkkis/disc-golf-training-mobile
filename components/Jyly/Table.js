@@ -41,7 +41,7 @@ export default function PointsTable(props) {
 export function StatsTable(props) {
   const [stats, setStats] =  useState({
 
-    tableHead: ['Distance', 'How many in', '% in'],
+    tableHead: ['Distance', 'How many in', 'Total shots', '% in'],
     tableData: [
       [],
 
@@ -51,7 +51,7 @@ export function StatsTable(props) {
   useEffect(()=>{
     let stats_array = []
     for (const from in props.stats){
-      stats_array.push([from, props.stats[from], `${props.stats[from]} %` ])
+      stats_array.push([`${from} m`, props.stats[from]["in"], props.stats[from]["total"], `${((props.stats[from]["in"]/props.stats[from]["total"])*100).toFixed()} %` ])
     }
     setStats({...stats, tableData: stats_array})
   }, [props])

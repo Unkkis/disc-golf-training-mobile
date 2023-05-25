@@ -1,9 +1,10 @@
 import React, { useState, useEffect} from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import * as Location from 'expo-location';
-import Mapview, { Marker, Polyline } from 'react-native-maps';
+import Mapview, { Marker, PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
 import { Button, Text } from '@rneui/themed';
 import { getDistance } from 'geolib';
+
 
 //https://medium.com/quick-code/react-native-location-tracking-14ab2c9e2db8
 //https://github.com/vikrantnegi/react-native-location-tracking
@@ -83,6 +84,7 @@ export default function Measure() {
         <Mapview style={styles.map}
           region = { region }
           mapType='hybrid'
+          provider={PROVIDER_GOOGLE}
         >
           {markerVisible ? (
           <Marker

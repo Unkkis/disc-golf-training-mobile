@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, TextInput, View, Button } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import MapView, { Marker } from 'react-native-maps';
-import { API_URL, API_KEY } from '@env';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { API_URL, API_KEY, API_URL2 } from '@env';
 import * as Location from 'expo-location';
 
 export default function App() {
@@ -36,7 +36,28 @@ export default function App() {
     })
   })()}, []);
 
-  const getCourses = () => {
+  const getCoursesWitLocation = () => {
+    fetch(`${API_URL2}?location=${region.latitude}%2C${region.longitude}&radius=20000&keyword=disc%20golf&key=${API_KEY}`)
+    .then(response => response.json())
+    .then((result) => {
+      setResults(result.results)
+      setCoordinates({
+        'latitude': result.results[0].geometry.location.lat, 
+        'longitude': result.results[0].geometry.location.lng
+      })
+      setRegion({
+        'latitude': result.results[0].geometry.location.lat,
+        'longitude': result.results[0].geometry.location.lng,
+        latitudeDelta: 0.322,
+        longitudeDelta: 0.221,
+       })
+    })
+    .then(setMarkerVisibility(true))
+    .catch(error => console.log('error', error))
+    ;
+  }
+
+  const getCourseswithAddress = () => {
     fetch(`${API_URL}?query=disc%20golf%20in%20${address}&key=${API_KEY}`)
     .then(response => response.json())
     .then((result) => {
@@ -57,8 +78,14 @@ export default function App() {
     ;
   }
 
-  const findAddress = () => {
-    getCourses();
+  const findButtonPressed = () => {
+    if (address == ''){
+      console.log("ei osoitetta")
+      getCoursesWitLocation();
+    }
+    else{
+    getCourseswithAddress();
+    }
   }
 
 
@@ -66,6 +93,7 @@ export default function App() {
     <View style={StyleSheet.absoluteFillObject}>
       <MapView style={styles.map}
         region={ region }
+        provider={PROVIDER_GOOGLE}
       >
         {markerVisibility ? (
           results.map((result, index) => (      
@@ -77,19 +105,18 @@ export default function App() {
           ))
           ) : (<></>)}
       </MapView>
-      <View style={styles.container} >
-        <TextInput style={{ flex: 2}}
+      <View style={styles.overlay} >
+        <TextInput style={{ }}
           onChangeText={text=> setAddress(text)} 
           value={address}
           placeholder="Enter address to find nearest Disc Golf establishments"
         />
-      <Button style={{ flex: 2 }}
+      <Button style={{}}
         title='SHOW'
-        onPress={findAddress}
+        onPress={findButtonPressed}
         />
 
       </View>
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -99,6 +126,16 @@ const styles = StyleSheet.create({
     flex: 1
   },
   map: {
-    height: '90%',
+    height: '100%',
   },
+  overlay: {
+    position: 'absolute',
+    bottom: 10,
+    left: 30,
+    backgroundColor: '#E0E0E0'
+  },
+  textinput: {
+    backgroundColor: 'grey',
+    height: 20,
+  }
 });

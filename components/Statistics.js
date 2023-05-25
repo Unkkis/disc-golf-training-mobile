@@ -32,17 +32,15 @@ export default function Statistics() {
   useEffect(() => {
     updateStats()
     updateTopPoints();
-    console.log(allStats)
   }, [allStats]);
 
-  
   const readDatabase = () => {
     db.transaction(tx => {
-      tx.executeSql('create table if not exists stats (id integer primary key not null, points integer, from5 integer, from6 integer, from7 integer, from8 integer, from9 integer, from10 integer);');
+      tx.executeSql('create table if not exists stats (id integer primary key not null, points integer, infrom5 integer, totalfrom5 integer, infrom6 integer, totalfrom6 integer, infrom7 integer, totalfrom7 integer,  infrom8 integer, totalfrom8 integer, infrom9 integer, totalfrom9 integer, infrom10 integer, totalfrom10 integer);');
       tx.executeSql('select * from stats;', [], (_, { rows }) =>
         setAllStats(rows._array)
       );
-    }, null, null);
+    }, (error) => {console.log("error", error)}, null);
     setRounds(allStats.length);
 
   }
@@ -54,28 +52,36 @@ export default function Statistics() {
     }, null, console.log('Stats cleared from database'));
   }
 
+  // forming data so table component accepts it.
   const updateStats = () => {
     let newStats = {
-      5: 0,
-      6: 0,
-      7: 0,
-      8: 0,
-      9: 0,
-      10: 0,
+      5: {in: 0, total: 0},
+      6: {in: 0, total: 0},
+      7: {in: 0, total: 0},
+      8: {in: 0, total: 0},
+      9: {in: 0, total: 0},
+      10: {in: 0, total: 0},
     }
     for (let i = 0; i < allStats.length; i++) {
-      newStats[5] += allStats[i]['from5']
-      newStats[6] += allStats[i]['from6']
-      newStats[7] += allStats[i]['from7']
-      newStats[8] += allStats[i]['from8']
-      newStats[9] += allStats[i]['from9']
-      newStats[10] += allStats[i]['from10']
+      newStats[5]["in"] += allStats[i]['infrom5']
+      newStats[5]["total"] += allStats[i]['totalfrom5']
+      newStats[6]["in"] += allStats[i]['infrom6']
+      newStats[6]["total"] += allStats[i]['totalfrom6']
+      newStats[7]["in"] += allStats[i]['infrom7']
+      newStats[7]["total"] += allStats[i]['totalfrom7']
+      newStats[8]["in"] += allStats[i]['infrom8']
+      newStats[8]["total"] += allStats[i]['totalfrom8']
+      newStats[9]["in"] += allStats[i]['infrom9']
+      newStats[9]["total"] += allStats[i]['totalfrom9']
+      newStats[10]["in"] += allStats[i]['infrom10']
+      newStats[10]["total"] += allStats[i]['totalfrom10']
     }
     setStats(newStats)
     setRounds(allStats.length);
     console.log('Stats updated');
   }
 
+  // calculating top5 round scores
   const updateTopPoints = () => {
     const points = allStats.map((round) => round['points'])
     points.sort(function(a, b){return b-a}); 

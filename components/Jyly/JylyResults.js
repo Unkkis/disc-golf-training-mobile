@@ -13,18 +13,20 @@ export default function JylyResults( {navigation, route}) {
 
   const calculate_stats = () => {
     let newStats = {
-      5: 0,
-      6: 0,
-      7: 0,
-      8: 0,
-      9: 0,
-      10: 0,
+      5: {in: 0, total: 0},
+      6: {in: 0, total: 0},
+      7: {in: 0, total: 0},
+      8: {in: 0, total: 0},
+      9: {in: 0, total: 0},
+      10: {in: 0, total: 0},
     }
     throws = route.params.throws
     for (let i = 0; i < throws.length; i++) {
       const from = throws[i][1]
-      const how_many = throws[i][2]
-      newStats[from] += how_many
+      const howManyIn = throws[i][2]
+      const total = 5
+      newStats[from]["in"] += howManyIn
+      newStats[from]["total"] += total
     }
     return newStats
   }
@@ -32,16 +34,16 @@ export default function JylyResults( {navigation, route}) {
   useEffect(() => {
     setStats(calculate_stats())
     db.transaction(tx => {
-      tx.executeSql('create table if not exists stats (id integer primary key not null, points integer, from5 integer, from6 integer, from7 integer, from8 integer, from9 integer, from10 integer);');
-    }, null, null); 
+      tx.executeSql('create table if not exists stats (id integer primary key not null, points integer, infrom5 integer, totalfrom5 integer, infrom6 integer, totalfrom6 integer, infrom7 integer, totalfrom7 integer,  infrom8 integer, totalfrom8 integer, infrom9 integer, totalfrom9 integer, infrom10 integer, totalfrom10 integer);');
+    }, (error) => {console.log("Error creating database", error)}, null); 
   }, [])
 
   const saveStats = () => {
     const currentdate = new Date()
     console.log(currentdate)
     db.transaction(tx => {
-        tx.executeSql('insert into stats (points, from5, from6, from7, from8, from9, from10) values (?, ?, ?, ?, ?, ?, ?);', [route.params.points, stats[5], stats[6], stats[7], stats[8], stats[9], stats[10]]);   
-      }, null, console.log('Stats saved to database'));
+        tx.executeSql('insert into stats (points, infrom5, totalfrom5, infrom6, totalfrom6, infrom7, totalfrom7, infrom8, totalfrom8, infrom9, totalfrom9, infrom10, totalfrom10) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', [route.params.points, stats[5]["in"], stats[5]["total"], stats[6]["in"], stats[6]["total"], stats[7]["in"], stats[7]["total"], stats[8]["in"], stats[8]["total"], stats[9]["in"], stats[9]["total"], stats[10]["in"], stats[10]["total"]]);   
+      }, (error) => {console.log("Error inserting to database", error)}, console.log('Stats saved to database'));
     
   }
   
@@ -49,11 +51,6 @@ export default function JylyResults( {navigation, route}) {
   const go_home_pressed = () =>{
     navigation.navigate('Home')
     saveStats()
-    db.transaction(tx => {
-      tx.executeSql('select * from stats;', [], (_, { rows }) =>
-        console.log(rows._array)
-      );
-    }, null, null);
   }
 
   return (
