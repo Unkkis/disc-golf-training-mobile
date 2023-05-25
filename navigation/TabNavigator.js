@@ -1,7 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Statistics from '../components/Statistics';
-import Discs from '../components/Discs'
 import FindCourse from '../components/FindCourse';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Home from "../components/Home";
@@ -23,8 +22,6 @@ const screenOptions = ({ route }) => ({
         iconName = 'bar-chart';
       } else if (route.name === 'Courses') {
         iconName = 'compass'
-      } else if (route.name === 'Discs') {
-        iconName = 'disc'
       }
       return <Ionicons name={iconName} size={size} color={color} />;
     },

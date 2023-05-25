@@ -1,7 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Measure from "../components/Measure";
-import Upshots from "../components/Upshots";
 import Help from "../components/Help";
 import BottomTabNavigator from "./TabNavigator";
 import Jyly from "../components/Jyly/Jyly";
@@ -16,7 +15,6 @@ const HomeStackNavigator = () => {
             <Stack.Screen options={{headerShown: false}} name="Home" component={BottomTabNavigator} />
             <Stack.Screen options={{headerShown: false}} name="JYLY" component={JylyStackNavigator} />
             <Stack.Screen name="Measure" component={Measure} />
-            <Stack.Screen name="Upshots" component={Upshots} />
             <Stack.Screen name="Help" component={Help} />
         </Stack.Navigator>
       );
