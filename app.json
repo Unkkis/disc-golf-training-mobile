@@ -23,7 +23,7 @@
       "bundleIdentifier": "com.unkkis.discgolftraining"
     },
     "android": {
-      "config":{
+      "config": {
         "googleMaps": {
           "apiKey": ""
         }

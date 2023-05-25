@@ -109,7 +109,7 @@ export default function App() {
         <TextInput style={{ }}
           onChangeText={text=> setAddress(text)} 
           value={address}
-          placeholder="Enter address to find nearest Disc Golf establishments"
+          placeholder='Click "show" for current location or enter another address'
         />
       <Button style={{}}
         title='SHOW'

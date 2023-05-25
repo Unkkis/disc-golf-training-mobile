@@ -18,6 +18,9 @@ export default function Help() {
         <Text style={styles.text}>Play for 20 rounds, and see how many points you get.</Text>
         <Text style={styles.text}>The app will tell you where to throw and how many points you have gathered.</Text>
         <Text h3>Measure distance:</Text>
+        <Text style={styles.text}>First click "Start GPS" when you want GPS tracking to start. You will see your current position and accuracy of the GPS after that.</Text>
+        <Text style={styles.text}>When accuracy is at suitable level (as low as possible) press "Set Start". After that, start walking to your disc.</Text>
+        <Text style={styles.text}>After you have walked to your disc, check if accuracy is at suitable level and press "End".</Text>
     </View>
   );
 }
@@ -28,7 +31,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   text: {
-    fontSize: 18,
+    fontSize: 16,
+    left: 10,
+    right: 10
   }
 
 });
