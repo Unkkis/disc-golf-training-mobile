@@ -193,7 +193,7 @@ export default function Measure() {
           ) : (<></>)}
         </Mapview>
         <View style={styles.overlay}>
-          <TouchableOpacity >
+          <TouchableOpacity style={styles.textField}>
            {lengthVisible ? (<Text h4>Shot length: {shotLength}m</Text>) : (<></>)} 
            {accuracyVisible? ( <Text h4>Accuracy: {accuracy}</Text>) : (<></>)}
           </TouchableOpacity>
@@ -220,6 +220,8 @@ const styles = StyleSheet.create({
   overlay: {
     position: 'absolute',
     bottom: 50,
-    backgroundColor: '#E0E0E0',
   },
+  textField: {
+    backgroundColor: '#E0E0E0',
+  }
 });

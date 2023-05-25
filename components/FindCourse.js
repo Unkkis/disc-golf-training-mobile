@@ -1,5 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, TextInput, View, Button } from 'react-native';
+
+import { StyleSheet, TextInput, View } from 'react-native';
+import { Button } from '@rneui/themed';
 import React, { useState, useEffect } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { API_URL, API_KEY, API_URL2 } from '@env';
@@ -106,12 +107,12 @@ export default function App() {
           ) : (<></>)}
       </MapView>
       <View style={styles.overlay} >
-        <TextInput style={{ }}
+        <TextInput style={styles.textinput}
           onChangeText={text=> setAddress(text)} 
           value={address}
           placeholder='Click "show" for current location or enter another address'
         />
-      <Button style={{}}
+      <Button 
         title='SHOW'
         onPress={findButtonPressed}
         />
@@ -132,10 +133,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 10,
     left: 30,
-    backgroundColor: '#E0E0E0'
+    backgroundColor: 'rgba(52, 52, 52, 0.0)'
   },
   textinput: {
-    backgroundColor: 'grey',
+    backgroundColor: '#E0E0E0',
     height: 20,
   }
 });

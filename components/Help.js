@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { Text } from "@rneui/themed";
-import Styles from '../Styles'
+
 
 
 export default function Help() {
@@ -31,9 +30,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   text: {
-    fontSize: 16,
     left: 10,
-    right: 10
+    right: 10,
+    fontSize: 16,
   }
 
 });
