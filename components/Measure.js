@@ -206,7 +206,7 @@ export default function Measure() {
         <View style={styles.overlay}>
           <TouchableOpacity style={styles.textField}>
            {lengthVisible ? (<Text h4>Shot length: {shotLength}m</Text>) : (<></>)} 
-           {accuracyVisible? ( <Text h4>Accuracy: {accuracy}</Text>) : (<></>)}
+           {accuracyVisible? ( <Text h4>Accuracy: {accuracy}m</Text>) : (<></>)}
           </TouchableOpacity>
           <Button 
             title={buttonTitle}
