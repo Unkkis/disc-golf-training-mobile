@@ -2,6 +2,7 @@
 ## App for training disc golf
 
 Made with Expo and React-Native.  
+    
 Developement build can be tested in: https://expo.dev/@unkkis/disc-golf-training
 
 Features on app:
